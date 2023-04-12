@@ -30,7 +30,7 @@ import i18n from '../../core/i18n/config';
 import {AuthContext} from '../../service/Auth/Auth.context';
 
 export default function ProfileScreen({navigation}) {
-  const {user} = useContext(ProfileContext);
+  const {user,setRolesUser} = useContext(ProfileContext);
   const {loadedSaveAddressFn} = useContext(AddressContext);
   const {orderSale} = useContext(BasketContext);
   const {uploadFileFn} = useContext(FileContext);
@@ -203,6 +203,7 @@ export default function ProfileScreen({navigation}) {
                 icon={<Logout />}
                 text={i18n.t("Global.SignOut")}
                 onClick={() => {
+                  setRolesUser("")
                   onDeleteUser();
                   navigation.replace('SignInScreen');
                 }}

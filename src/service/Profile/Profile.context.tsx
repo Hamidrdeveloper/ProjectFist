@@ -30,6 +30,7 @@ interface IProfileContext {
   walletBalance: string;
   listDocument: any ;
   documentFn: any ;
+  setRolesUser: any ;
 
 }
 export const ProfileContext = createContext<IProfileContext>(
@@ -147,7 +148,8 @@ export default function ProfileContextProvider({
         rolesUser,
         walletBalance,
         listDocument,
-        documentFn
+        documentFn,
+        setRolesUser
       }}>
       {children}
     </ProfileContext.Provider>

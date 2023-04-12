@@ -47,8 +47,7 @@ export default function FlatListSlide({
           renderItem={renderItem}
           horizontal={true}
           numColumns={1}
-          initialNumToRender={5}
-          windowSize={5}
+          
           showsHorizontalScrollIndicator={false}
           style={{height: height, flexGrow: 0}}
           snapToInterval={Dimensions.get('window').width - snap}

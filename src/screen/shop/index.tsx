@@ -117,6 +117,8 @@ function ShopScreen({ navigation }) {
 
   const [openPartner, setOpenPartner] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+    const [isSearchingCategory, setIsSearchingCategory] = useState("");
+
   const debouncedValue = useDebounce<string>(search,2000)
   useEffect(
     () => {
@@ -540,10 +542,11 @@ function ShopScreen({ navigation }) {
   });
   const callback = payload => {
     
-
-    goToScreenCategory(navigation, payload, searchProductsFn);
+   setIsSearchingCategory(payload?.slug)
+    
     setIsSearching(true);
     setNameCategory(payload?.name);
+    searchProductsFn(payload?.slug, payload?.slug,"",1,);
 }
   return (
     <SafeAreaView edges={["top"]} style={{ backgroundColor: "#fff" }}>
@@ -690,9 +693,11 @@ function ShopScreen({ navigation }) {
             value={search}
             navigation={navigation}
             nameCategory={nameCategory}
+            isCategory={isSearchingCategory}
             onChange={(value) => updateSearch(value)}
             onShow={() => {
               setIsSearching(false);
+              setIsSearchingCategory("");
             }}
           />
         )}

@@ -44,7 +44,7 @@ class ProductDataService {
     };
   }
   productsSearch(data: Type.Products) {
-    console.log(Address.PRODUCTS_VARIATIONS_ADDRESS, data);
+    console.log("Fulu", data);
 
     return http
       .get(Address.PRODUCTS_VARIATIONS_ADDRESS, {params: data})
@@ -72,19 +72,19 @@ class ProductDataService {
       });
   }
   categories() {
-    console.log(Address.PRODUCTS_CATEGORIES_ADDRESS, TOKEN.token);
+    console.log(Address.PRODUCTS_CATEGORIES_TREE_ADDRESS, TOKEN.token);
 
     return http
-      .get(Address.PRODUCTS_CATEGORIES_ADDRESS)
+      .get(Address.PRODUCTS_CATEGORIES_TREE_ADDRESS)
       .then(res => {
-        console.log(Address.PRODUCTS_CATEGORIES_ADDRESS, res.data.data);
+        console.log(Address.PRODUCTS_CATEGORIES_TREE_ADDRESS, res.data.data);
         let dataArray = res.data.data.filter(res => {
           if (res.show_in_header && res.show_in_website) return res;
         });
         return dataArray;
       })
       .catch(error => {
-        console.log(Address.PRODUCTS_CATEGORIES_ADDRESS, error.response);
+        console.log(Address.PRODUCTS_CATEGORIES_TREE_ADDRESS, error.response);
       });
   }
   categoriesTree() {

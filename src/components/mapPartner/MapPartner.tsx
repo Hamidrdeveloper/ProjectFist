@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
-import { Marker, InfoWindow, Callout, CalloutSubview ,PROVIDER_GOOGLE} from "react-native-maps";
-import MapView from "react-native-map-clustering";
+// import { Marker, InfoWindow, Callout, CalloutSubview ,PROVIDER_GOOGLE} from "react-native-maps";
+// import MapView from "react-native-map-clustering";
 import HartmannInfo from "./PartnerInfo";
 
 const markers = [
@@ -35,7 +35,7 @@ const MapPartner = ({ partnerData, onPress }) => {
 
   return (
     <View style={styles.container}>
-      <MapView
+     {/* <MapView
         style={styles.map}
         initialRegion={{
           latitude: 52.2249252,
@@ -76,7 +76,7 @@ const MapPartner = ({ partnerData, onPress }) => {
           </Marker>
         ))}
 
-      </MapView>
+      </MapView>*/}
       <Modal visible={show}  transparent>
               <View style={{ width: 300 ,backgroundColor:"#fff",height:360,alignItems:'center',alignSelf:'center',alignContent:'center',borderRadius:15,top:300}}>
 

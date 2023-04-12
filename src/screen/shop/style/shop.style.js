@@ -29,8 +29,8 @@ export const ViewAdvertisement = styled(View).attrs(() => ({}))`
 export const CategoryBrand = styled(ImageBackground).attrs(() => ({
   imageStyle: {borderRadius: 60},
 }))`
-  height: 70%;
-  width: 50%;
+  height: 80;
+  width: 80;
   border-radius: 60
   margin-left: 20;
   margin-right: 20;
@@ -48,7 +48,11 @@ export const CategoryImageBrand = styled(Image).attrs(() => ({
 Align-self: center;
 `;
 
-export const ButtonCategory = styled(Pressable).attrs(() => ({}))``;
+export const ButtonCategory = styled(Pressable).attrs(() => ({}))`
+margin-left: 10;
+  margin-right: 10;
+   align-items: center;
+`;
 
 export const CategoryTextBrand = styled(Text).attrs(() => ({}))`
   width: 100%;

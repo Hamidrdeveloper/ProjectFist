@@ -10,6 +10,7 @@ import {
   CategoryImageBrand,
   CategoryTextBrand,
 } from "../style/shop.style";
+import {Color} from '../../../infrastructuer/theme/colors.style';
 
 export default function CategoryComponent({data,search,onCallBack}) {
     const navigation = useNavigation();
@@ -22,12 +23,12 @@ export default function CategoryComponent({data,search,onCallBack}) {
                 handleCallback(item);
               }}
             >
-              <CategoryBrand style={{ backgroundColor: `${item.color}` }}>
+              <CategoryBrand style={{ backgroundColor:item.color? `${item.color}`:item.file_path == null?`${Color.brand.colorButton}`:null,alignItems:'center'}}>
                 <CategoryImageBrand
                   source={
                     item.file_path != null
                       ? { uri: IMAGE_ADDRESS + item.file_path }
-                      : require("../../../assets/image/cleafin_logo_star.png")
+                      : require("../../../assets/image/stwo.png")
                   }
                 />
               </CategoryBrand>
@@ -41,8 +42,8 @@ export default function CategoryComponent({data,search,onCallBack}) {
     <FlatListSlide
     data={data}
     renderItem={categoryItem}
-    snap={5}
-    height={85}
+    snap={10}
+    height={120}
       isLoading={false}
     />
   );

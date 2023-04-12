@@ -54,6 +54,8 @@ export default function MainContextProvider({
     setLoginOpen(false);
     Storage.removeDataAll();
     Storage.removeData('TOKEN');
+    Storage.storeData('WELCOME', "OK");
+            
     if(Platform.OS=="web")
     {
         window.location.reload()

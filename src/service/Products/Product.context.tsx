@@ -35,7 +35,7 @@ interface IProductContext {
   categoriesInformation: any;
   searchProductsFn: (
     text?: string,
-    categoryId?: number | Array<number>,
+    categoryId?: number | Array<number>|string,
     sort?: string,
     page?:any
   ) => void;
@@ -102,10 +102,32 @@ export default function ProductContextProvider({
     },
     [setNewProductsItem]
   );
+  function flattenTree(tree) {
+  const result = [];
+  
+  tree.forEach(node => {
+    if(node.show_in_header && node.show_in_website){
+      
+    result.push({...node,file_path:node?.file?.root_file?.path});
+  
+    if (node.children && node.children.length > 0) {
+
+      node.children.forEach(child => {
+      result.push({...child,file_path:child?.file?.root_file?.path});
+    });
+    }
+    }
+  });
+  
+  return result;
+}
   const categoriesFn = useMemo(
     () => async () => {
+      const result =[];
       const res = await Ac.categoriesAc();
-      setCategoriesItem(res);
+      
+      
+      setCategoriesItem(flattenTree(res));
     },
     []
   );
@@ -246,13 +268,20 @@ export default function ProductContextProvider({
   const searchProductsPageFn = useMemo(
     () => async (
       text?: string,
-      categoryId?: number | Array<number>,
+      categoryId?: number | Array<number>|string,
       sort?: string,
       newPage?:any
     ) => {
-
+    let dataPost;
    
-    const dataPost = { ...ProductsArrivalModel,search:text,page:newPage};
+
+     if(categoryId){
+       dataPost= {productCategorySlug:text,page:newPage};
+     }else{
+       dataPost= {search:text,page:newPage};
+     }
+
+
     const res = await Ac.productsSearchAc(dataPost);
       setCategoryProductsItem((prevData) => ({
         ...prevData,
@@ -276,15 +305,20 @@ export default function ProductContextProvider({
   const searchProductsFn = useMemo(
     () => async (
       text?: string,
-      categoryId?: number | Array<number>,
+      categoryId?: number | Array<number>|string,
       sort?: string,
       newPage?:any
     ) => {
-      setCategoryProductsItem({currentData:[],page:1,per_page:10,Id:0,text:""});
+      setCategoryProductsItem({currentData:[],page:1,per_page:10,Id:0,text:text});
     setCategoryLode(true);
+let dataPost;
+if(categoryId){
+       dataPost= {productCategorySlug:text,page:newPage};
+     }else{
+       dataPost= {search:text,page:newPage};
+     }  
 
-    const dataPost = { ...ProductsArrivalModel,page:newPage,search:text};
-    const res = await Ac.productsSearchAc(dataPost);
+       const res = await Ac.productsSearchAc(dataPost);
       setCategoryLode(false);
       setCategoryProductsItem((prevData) => ({
         ...prevData,
@@ -295,7 +329,7 @@ export default function ProductContextProvider({
         text:text,
       }))
      
- 
+   
   
       
     },

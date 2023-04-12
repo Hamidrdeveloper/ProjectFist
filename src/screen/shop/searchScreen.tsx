@@ -58,6 +58,7 @@ export default function SearchPageScreen({
   onShow,
   navigation,
   nameCategory = "",
+  isCategory
 }) {
   const {
     categoryProductsItem,
@@ -78,11 +79,14 @@ export default function SearchPageScreen({
     },
     [value] // Only call effect if debounced search term changes
   );
+  
   const debouncedValue = useDebounce<string>(search, 3000);
   useEffect(
     () => {
       if (search.length>1) {
-        searchProductsFn(search, "", "", 1);
+                searchProductsFn(search, isCategory, "", 1);
+
+        searchProductsFn(search, isCategory, "", 1);
       } else {
       }
     },
@@ -346,7 +350,7 @@ style={{width:isTablet?`95%`:`80%`,alignSelf:"center"}}
               onEndReached={() => {
                 searchProductsPageFn(
                   categoryProductsItem?.text,
-                  categoryProductsItem?.Id,
+                  isCategory,
                   "",
                   categoryProductsItem?.page + 1
                 );
@@ -370,12 +374,15 @@ style={{width:isTablet?`95%`:`80%`,alignSelf:"center"}}
               initialNumToRender={10}
               windowSize={10}
               onEndReached={() => {
-                searchProductsPageFn(
+                if(categoryProductsItem?.currentData){
+                  searchProductsPageFn(
                   categoryProductsItem?.text,
-                  categoryProductsItem?.Id,
+                  isCategory,
                   "",
                   categoryProductsItem?.page + 1
                 );
+                }
+                
               }}
               onEndReachedThreshold={0.2}
               ListFooterComponent={() => {
@@ -390,6 +397,7 @@ style={{width:isTablet?`95%`:`80%`,alignSelf:"center"}}
           {/* {[1,2,3,4,5,6,7,8,9,10,11].map(()=>{
             return
         })} */}
+        <Space lineH={300} />
         </Padding>
         
       </ScrollView>
